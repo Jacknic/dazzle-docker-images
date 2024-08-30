@@ -1,21 +1,9 @@
 ARG base
-FROM ${base} AS builder
 
-ARG JAVA_VERSION=17.0.12.fx-zulu
-
+FROM eclipse-temurin:17-jdk-alpine AS builder
 USER root
-
-RUN bash -c ". ${HOME}/.sdkman/bin/sdkman-init.sh \
-    && sed -i 's/sdkman_selfupdate_enable=true/sdkman_selfupdate_enable=false/g' ${HOME}/.sdkman/etc/config \
-    && sed -i 's/sdkman_selfupdate_feature=true/sdkman_selfupdate_feature=false/g' ${HOME}/.sdkman/etc/config \
-    && sdk install java ${JAVA_VERSION} \
-    && sdk default java ${JAVA_VERSION} \
-    && sdk flush archives \
-    && sdk flush temp \
-    && echo 'export SDKMAN_DIR=\"${HOME}/.sdkman\"' >> ${HOME}/.bashrc.d/99-java \
-    && echo '[[ -s \"${HOME}/.sdkman/bin/sdkman-init.sh\" ]] && source \"${HOME}/.sdkman/bin/sdkman-init.sh\"' >> ${HOME}/.bashrc.d/99-java"
-
-ENV JAVA_HOME="${HOME}/.sdkman/candidates/java/${JAVA_VERSION}"
+ENV HOME="/root"
+ENV TRIGGER_REBUILD=1
 
 # Install Android SDK Tools
 ENV ANDROID_HOME "${HOME}/.android-sdk"
@@ -32,9 +20,12 @@ RUN SDK_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-lin
     rm /tmp/cmdline-tools.zip && \
     mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest
 
-ARG PACKAGES_FILENAME="android-sdks.txt"
-COPY sdk_packages_list.txt $PACKAGES_FILENAME
-RUN echo y | sdkmanager --package_file=$PACKAGES_FILENAME
+COPY sdk_packages_list.txt sdk_packages.txt
+RUN echo y | sdkmanager --package_file=sdk_packages.txt && \
+    echo y | sdkmanager "extras;android;m2repository" \
+    "extras;google;m2repository"
+
+
 
 FROM ${base} AS android
 USER root

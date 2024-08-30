@@ -1,0 +1,13 @@
+variants:
+  - name: "8.2"
+    args:
+      GRADLE_VERSION: 8.2
+  - name: "8.0"
+    args:
+      GRADLE_VERSION: 8.0
+  - name: "7.3.3"
+    args:
+      GRADLE_VERSION: 7.3.3
+  - name: "6.5.1"
+    args:
+      GRADLE_VERSION: 6.5.1

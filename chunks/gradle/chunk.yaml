@@ -1,4 +1,7 @@
 variants:
+  - name: "8.9"
+    args:
+      GRADLE_VERSION: 8.9
   - name: "8.2"
     args:
       GRADLE_VERSION: 8.2

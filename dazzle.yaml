@@ -3,25 +3,80 @@ combiner:
     - name: jdk8
       chunks:
         - java:8
+
     - name: jdk11
       chunks:
         - java:11
+
     - name: jdk17
       chunks:
         - java:17
+
     - name: jdk21
       chunks:
         - java:21
+
+    - name: sdk-full
+      chunks:
+        - sdk:31
+        - sdk:32
+        - sdk:33
+        - sdk:34
+        - sdk:35
+
+    - name: cmdline
+      chunks:
+        - java:17
+        - cmdline
+
+    - name: sdk-jdk8
+      ref:
+        - sdk-full
+      chunks:
+        - cmdline
+        - java:8
+    - name: sdk-jdk11
+      ref:
+        - sdk-full
+      chunks:
+        - cmdline
+        - java:11
+    - name: sdk-jdk17
+      ref:
+        - sdk-full
+      chunks:
+        - cmdline
+        - java:17
+    - name: sdk-jdk21
+      ref:
+        - sdk-full
+      chunks:
+        - cmdline
+        - java:21
+
     - name: android-gradle8.2
+      ref:
+        - sdk-jdk17
       chunks:
-        - java:17
         - gradle:8.2
-        - sdk
-    - name: android-gradle8.0
+
+    - name: android-gradle7.3.3
+      ref:
+        - sdk-jdk11    
       chunks:
-        - java:17
+        - gradle:7.3.3
+
+    - name: android-gradle8.0
+      ref:
+        - sdk-jdk17
+      chunks:
         - gradle:8.0
-        - sdk
+
+    - name: android-gradle6.5.1
+      ref:
+        - sdk-jdk8
+      chunks:
+        - gradle:6.5.1
   envvars:
     - name: PATH
       action: merge-unique

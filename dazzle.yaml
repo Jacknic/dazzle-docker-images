@@ -25,9 +25,17 @@ combiner:
         - sdk:35
 
     - name: cmdline
+      ref:
+        - jdk17
       chunks:
-        - java:17
         - cmdline
+
+    - name: sdk-35
+      ref:
+        - jdk17
+      chunks:
+        - cmdline
+        - sdk:35
 
     - name: sdk-jdk8
       ref:
@@ -62,7 +70,7 @@ combiner:
 
     - name: android-gradle7.3.3
       ref:
-        - sdk-jdk11    
+        - sdk-jdk11
       chunks:
         - gradle:7.3.3
 

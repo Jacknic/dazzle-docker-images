@@ -1,90 +1,110 @@
 combiner:
   combinations:
+    # Java ------------
     - name: jdk8
       chunks:
-        - java:8
+        - 03-java:8
 
     - name: jdk11
       chunks:
-        - java:11
+        - 03-java:11
 
     - name: jdk17
       chunks:
-        - java:17
+        - 03-java:17
 
     - name: jdk21
       chunks:
-        - java:21
+        - 03-java:21
 
-    - name: sdk-full
-      chunks:
-        - sdk:31
-        - sdk:32
-        - sdk:33
-        - sdk:34
-        - sdk:35
-
+    # cmdline -------------
     - name: cmdline
       ref:
         - jdk17
       chunks:
-        - cmdline
+        - 01-cmdline
 
-    - name: sdk-35
-      ref:
-        - jdk17
+    # SDK ---------------
+    - name: api-base
       chunks:
-        - cmdline
-        - sdk:35
+        - 01-cmdline
+    - name: api-full
+      ref:
+        - api-base
+      chunks:
+        - 02-api:31
+        - 02-api:32
+        - 02-api:33
+        - 02-api:34
+        - 02-api:35
 
-    - name: sdk-jdk8
+    # JDK variants  -----------------
+    - name: api-base-jdk8
       ref:
-        - sdk-full
+        - api-base
       chunks:
-        - cmdline
-        - java:8
-    - name: sdk-jdk11
+        - 03-java:8
+    - name: api-base-jdk11
       ref:
-        - sdk-full
+        - api-base
       chunks:
-        - cmdline
-        - java:11
-    - name: sdk-jdk17
+        - 03-java:11
+    - name: api-base-jdk17
       ref:
-        - sdk-full
+        - api-base
       chunks:
-        - cmdline
-        - java:17
-    - name: sdk-jdk21
-      ref:
-        - sdk-full
-      chunks:
-        - cmdline
-        - java:21
+        - 03-java:17
 
-    - name: android-gradle8.2
+    - name: api-full-jdk8
       ref:
-        - sdk-jdk17
+        - api-full
       chunks:
-        - gradle:8.2
+        - 03-java:8
+    - name: api-full-jdk11
+      ref:
+        - api-full
+      chunks:
+        - 03-java:11
+    - name: api-full-jdk17
+      ref:
+        - api-full
+      chunks:
+        - 03-java:17
 
-    - name: android-gradle7.3.3
+    # Gradle full variants  -----------------
+    - name: api-full-gradle6.5.1
       ref:
-        - sdk-jdk11
+        - api-full-jdk8
       chunks:
-        - gradle:7.3.3
+        - 04-gradle:6.5.1
 
-    - name: android-gradle8.0
+    - name: api-full-gradle7.3.3
       ref:
-        - sdk-jdk17
+        - api-full-jdk11
       chunks:
-        - gradle:8.0
+        - 04-gradle:7.3.3
 
-    - name: android-gradle6.5.1
+    - name: api-full-gradle8.0
       ref:
-        - sdk-jdk8
+        - api-full-jdk17
       chunks:
-        - gradle:6.5.1
+        - 04-gradle:8.0
+
+    - name: api-full-gradle8.2
+      ref:
+        - api-full-jdk17
+      chunks:
+        - 04-gradle:8.2
+    
+    # slim variants  -----------------
+    - name: api-34-gradle8.2
+      ref:
+        - api-base-jdk17
+      chunks:
+        - 02-api:34
+        - 04-gradle:8.2
+
+
   envvars:
     - name: PATH
       action: merge-unique

@@ -24,8 +24,7 @@ RUN SDK_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-lin
 RUN bash -c ". ${HOME}/.sdkman/bin/sdkman-init.sh  && \
     echo y | sdkmanager 'platform-tools'  \
     'extras;android;m2repository' \
-    'extras;google;m2repository' \
-    'extras;google;google_play_services'"
+    'extras;google;m2repository'"
 
 FROM ${base} AS android
 USER root

@@ -13,10 +13,6 @@ combiner:
       chunks:
         - 03-java:17
 
-    - name: jdk21
-      chunks:
-        - 03-java:21
-
     # cmdline -------------
     - name: cmdline
       ref:

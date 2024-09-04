@@ -72,32 +72,32 @@ combiner:
         - 03-java:17
 
     # Gradle full variants  -----------------
-    - name: api-full-gradle6.5.1
+    - name: api-full-gradle-6.5
       ref:
         - api-full-jdk8
       chunks:
-        - 04-gradle:6.5.1
+        - 04-gradle:6.5
 
-    - name: api-full-gradle7.3.3
+    - name: api-full-gradle-7.3
       ref:
         - api-full-jdk11
       chunks:
-        - 04-gradle:7.3.3
+        - 04-gradle:7.3
 
-    - name: api-full-gradle8.0
+    - name: api-full-gradle-8.0
       ref:
         - api-full-jdk17
       chunks:
         - 04-gradle:8.0
 
-    - name: api-full-gradle8.2
+    - name: api-full-gradle-8.2
       ref:
         - api-full-jdk17
       chunks:
         - 04-gradle:8.2
     
     # slim variants  -----------------
-    - name: api-34-gradle8.2
+    - name: api-34-gradle-8.2
       ref:
         - api-base-jdk17
       chunks:

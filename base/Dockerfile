@@ -14,3 +14,8 @@ RUN mkdir -p ${HOME}/.bashrc.d
 
 # Install SDKMAN
 RUN curl -fsSL "https://get.sdkman.io" | bash
+
+# 指定时区为中国（Asia/Shanghai）,并设置语言环境为UTF-8
+ENV TZ=Asia/Shanghai \
+    LANG=C.UTF-8 \
+    LANGUAGE=C.UTF-8 

@@ -26,22 +26,22 @@ jobs:
       - name: Start BuildKit and local registry
         run: |
           chmod +x ./start-dazzle.sh
-          ./start-dazzle.sh &
+          sudo bash ./start-dazzle.sh &
           sleep 5 # Wait for BuildKit and registry to start
 
       - name: prebuild setup
         run: |
           chmod +x ./prebuild-dazzle.sh
-          ./prebuild-dazzle.sh
+          sudo bash ./prebuild-dazzle.sh
       
       - name: Run build script
         run: |
           chmod +x ./${{ github.event.inputs.target }}.sh
-          ./${{ github.event.inputs.target }}.sh
+          sudo bash ./${{ github.event.inputs.target }}.sh
       - name: sync docker
         run: |
           chmod +x ./skope-sync.sh
-          ./skope-sync.sh
+          sudo bash ./skope-sync.sh
 
       - name: Cleanup
         if: always()

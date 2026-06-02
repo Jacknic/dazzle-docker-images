@@ -25,9 +25,9 @@ jobs:
 
       - name: Start BuildKit and local registry
         run: |
-          sudo /usr/bin/buildkitd --debug --config ./buildkitd.toml > /tmp/buildkitd.log 2>&1 &
-          echo $! > /tmp/buildkitd.pid
-          docker run -d -p 5000:5000 --name registry -v /tmp/registry:/var/lib/registry registry:2
+          chmod +x ./start-dazzle.sh
+          ./start-dazzle.sh &
+          sleep 5 # Wait for BuildKit and registry to start
 
       - name: prebuild setup
         run: |
@@ -47,4 +47,4 @@ jobs:
         if: always()
         run: |
           docker rm -f registry || true
-          if [ -f /tmp/buildkitd.pid ]; then sudo kill "$(cat /tmp/buildkitd.pid)" || true; fi
+          if [ -f /tmp/buildkitd.pid ]; then kill "$(cat /tmp/buildkitd.pid)" || true; fi

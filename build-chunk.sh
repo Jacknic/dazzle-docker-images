@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 set -euo pipefail
 trap ctrl_c EXIT
 

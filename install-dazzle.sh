@@ -1,3 +1,5 @@
+# !/bin/bash
+
 # run as root
 BUILDKIT_VERSION=0.12.3
 BUILDKIT_FILENAME=buildkit-v${BUILDKIT_VERSION}.linux-amd64.tar.gz

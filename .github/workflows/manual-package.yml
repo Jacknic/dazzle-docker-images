@@ -42,8 +42,8 @@ jobs:
           sudo bash ./${{ github.event.inputs.target }}.sh
       - name: sync docker
         run: |
-          chmod +x ./skope-sync.sh
-          sudo bash ./skope-sync.sh
+          chmod +x ./skopeo-sync.sh
+          sudo bash ./skopeo-sync.sh
 
       - name: Cleanup
         if: always()

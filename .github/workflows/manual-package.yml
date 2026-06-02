@@ -1,0 +1,50 @@
+name: Manual Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Build target script to run'
+        required: true
+        default: build-all
+        type: choice
+        options:
+          - build-all
+          - build-chunk
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: sudo bash ./install-dazzle.sh
+
+      - name: Start BuildKit and local registry
+        run: |
+          sudo /usr/bin/buildkitd --debug --config ./buildkitd.toml > /tmp/buildkitd.log 2>&1 &
+          echo $! > /tmp/buildkitd.pid
+          docker run -d -p 5000:5000 --name registry -v /tmp/registry:/var/lib/registry registry:2
+
+      - name: prebuild setup
+        run: |
+          chmod +x ./prebuild-dazzle.sh
+          ./prebuild-dazzle.sh
+      
+      - name: Run build script
+        run: |
+          chmod +x ./${{ github.event.inputs.target }}.sh
+          ./${{ github.event.inputs.target }}.sh
+      - name: sync docker
+        run: |
+          chmod +x ./skope-sync.sh
+          ./skope-sync.sh
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker rm -f registry || true
+          if [ -f /tmp/buildkitd.pid ]; then sudo kill "$(cat /tmp/buildkitd.pid)" || true; fi

@@ -1,9 +1,9 @@
-# !/bin/bash
+#!/bin/bash
 set -euo pipefail
-trap ctrl_c EXIT
 
 # shellcheck source=/dev/null
 source build-common.sh
+trap ctrl_c EXIT
 
 readonly TEMP_FILE=".dazzle.yaml.temp"
 source setup-repo.sh

@@ -1,9 +1,9 @@
-# !/bin/bash
-set -eo pipefail
-trap ctrl_c EXIT
+#!/bin/bash
+set -euo pipefail
 
 # shellcheck source=/dev/null
 source build-common.sh
+trap ctrl_c EXIT
 
 function build_combination() {
 	combination=$1

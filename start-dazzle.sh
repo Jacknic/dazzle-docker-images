@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 
 /usr/bin/buildkitd --debug  --config ./buildkitd.toml &
 mkdir -p /tmp/registry &

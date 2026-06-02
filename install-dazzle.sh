@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 
 # run as root
 BUILDKIT_VERSION=0.12.3

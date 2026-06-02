@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 # This script syncs the built images to GitHub Container Registry
 
 source ./setup-repo.sh

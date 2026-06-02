@@ -1,8 +1,13 @@
-#! /bin/bash
+#!/bin/bash
 
-YELLOW=$(tput setaf 3)
+if command -v tput >/dev/null 2>&1 && tput setaf 3 >/dev/null 2>&1; then
+  YELLOW=$(tput setaf 3)
+  NC=$(tput sgr0)
+else
+  YELLOW=""
+  NC=""
+fi
 readonly YELLOW
-NC=$(tput sgr0)
 readonly NC
 
 readonly BACKUP_FILE=".dazzle.yaml.orig"
